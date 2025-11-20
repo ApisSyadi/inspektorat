@@ -1,0 +1,220 @@
+{{ define "main" }}
+<style>
+    body {
+        --pagefind-ui-scale: 0.8;
+        --pagefind-ui-primary: #1BBD36;
+        --pagefind-ui-text: #393939;
+        --pagefind-ui-background: #fffffffb;
+        --pagefind-ui-border: #eeeeee;
+        --pagefind-ui-tag: #eeeeee;
+        --pagefind-ui-border-width: 2px;
+        --pagefind-ui-border-radius: 8px;
+        --pagefind-ui-image-border-radius: 8px;
+        --pagefind-ui-image-box-ratio: 3 / 2;
+        --pagefind-ui-font: sans-serif;
+    }
+</style>
+ <!-- Hero Section -->
+<section id="hero" class="hero section dark-background">
+
+    <div id="hero-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+        {{ $sliders := .Site.Params.sliders.images }}
+        {{ $runningText := .Site.Params.running_text }}
+        {{ range $index, $slider := $sliders }}
+        <div class="carousel-item active">
+            <img src="sliders/{{ .url }}" alt="">
+        </div><!-- End Carousel Item -->
+        {{ end }}
+        <div class="container">
+            <h2> Selamat datang di {{ site.Title }}</h2>
+            <p></p>
+            <div id="search" class="searchBox"></div>
+        </div>
+
+
+
+    <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+    </a>
+
+    <a class="carousel-control-next" href="#hero-carousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+    </a>
+
+    <ol class="carousel-indicators"></ol>
+
+    </div>
+
+</section>
+<!-- /Hero Section -->
+
+<!-- About Section -->
+    <section id="about" class="about section">
+
+      <div class="container">
+
+        <div class="row position-relative">
+
+            <div class="col-lg-7 about-img" data-aos="zoom-out" data-aos-delay="200">
+                {{ if .Site.Params.welcomeImage }}
+                    <img src="{{ .Site.Params.welcomeImage }}" class="img-fluid">
+                {{ else }}
+                    {{ with resources.Get "img/gubwagub.png" }}
+                    <img src="{{ .RelPermalink }}" class="img-fluid">
+                    {{ end }}
+                {{ end }}
+            </div>
+
+          <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
+            <h2 class="inner-title">{{ .Site.Params.introTitle }}</h2>
+            <div class="our-story">
+              <h4>Profil</h4>
+              <h3>{{ site.Title }}</h3>
+              <p>Kedudukan dan Alamat</p>
+              <ul>
+                <li><i class="bi bi-check-circle"></i> <span>Profil Pimpinan</span></li>
+                <li><i class="bi bi-check-circle"></i> <span>Visi Misi</span></li>
+                <li><i class="bi bi-check-circle"></i> <span>Tugas Dan Fungsi</span></li>
+                <li><i class="bi bi-check-circle"></i> <span>Struktur Organisasi</span></li>
+                <li><i class="bi bi-check-circle"></i> <span>Unit Kerja</span></li>
+                <li><i class="bi bi-check-circle"></i> <span>Ruang Lingkup</span></li>
+              </ul>
+              <p></p>
+
+              {{/*  <div class="watch-video d-flex align-items-center position-relative">
+                <i class="bi bi-play-circle"></i>
+                <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox stretched-link">Watch Video</a>
+              </div>  */}}
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /About Section -->
+
+<section id="services" class="services section light-background clients">
+    {{ $frontBundle := .Site.Params.frontBundle }}
+    {{ if $frontBundle }}
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+      <h2>{{ $frontBundle }}</h2>
+      <p></p>
+    </div><!-- End Section Title -->
+    <div class="container">
+        <div class="row gy-4">
+            {{ range first 6 (where .Site.RegularPages.ByDate.Reverse "Type" (.Site.Params.frontBundle | urlize))  }}
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <a href="{{ .RelPermalink }}">
+                    <div class="service-item item-cyan position-relative">
+                        <div class="overflow-hidden service-img position-relative client-logo" style="max-height: 50%;">
+                            {{ if ne .Params.thumbnail "" }}
+                                <img src="{{.Params.thumbnail}}" alt="" class="img-fluid">
+                            {{ end }}
+                        </div>
+                        <h3 style="color: #1bbd36;">{{ .Title }}</h3>
+                        <p class="text-black">{{ .Content | plainify | truncate 100 }}</p>
+                    </div>
+                </a>
+            </div><!-- End Service Item -->
+            {{ end }}
+        </div><!-- End Service Item -->
+        <div class="row" style="margin-top: 20px;">
+            <div class="text-center col-lg-12">
+                <a href="/{{ $frontBundle | urlize }}" class="btn btn-success" style="background-color: #1bbd36;">{{$frontBundle}} Selengkapnya</a>
+            </div>
+        </div>
+    </div><!-- End Container -->
+    {{ end }}
+
+</section>
+
+<!-- Portfolio Section -->
+<section id="portfolio" class="portfolio section">
+{{ $frontBundle2 := .Site.Params.frontBundle2 }}
+{{ if $frontBundle2 }}
+
+<!-- Section Title -->
+<div class="container section-title" data-aos="fade-up">
+  <h2>{{ $frontBundle2 }}</h2>
+  <p></p>
+</div><!-- End Section Title -->
+
+<div class="container">
+
+  <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+    <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+      <li data-filter="*" class="filter-active">All</li>
+    </ul><!-- End Portfolio Filters -->
+
+    <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+      {{ range first 6 (where .Site.RegularPages.ByDate.Reverse "Type" ($frontBundle2 | urlize)) }}
+      <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+        <img src="{{ .Params.thumbnail }}" class="img-fluid" alt="">
+        <div class="portfolio-info">
+          <h4>{{ .Params.title }}</h4>
+          <p>{{ .Content | plainify | truncate 20 }}</p>
+          <a href="{{ .Params.thumbnail }}" title="{{ .Params.title }}" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+          <a href="{{ .RelPermalink }}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+        </div>
+      </div><!-- End Portfolio Item -->
+      {{ end }}
+
+
+
+    </div><!-- End Portfolio Container -->
+
+  </div>
+
+  <div class="mt-4 row">
+      <div class="text-center col-lg-12">
+          <a href="/{{ $frontBundle2 | urlize }}" class="btn btn-success" style="background-color: #1bbd36;">{{$frontBundle2}} Selengkapnya</a>
+      </div>
+  </div>
+
+</div>
+{{ end }}
+
+</section><!-- /Portfolio Section -->
+
+ <!-- Pricing Section -->
+   {{ $agenda := .Site.Params.agenda }}
+  {{ if $agenda }}
+ <section id="pricing" class="pricing section">
+<!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Agenda</h2>
+    <p></p>
+  </div><!-- End Section Title -->
+   <div class="container">
+
+     <div class="row gy-4">
+        {{ range first 8 $agenda }}
+       <div class="col-lg-3" data-aos="zoom-in" data-aos-delay="100">
+         <div class="pricing-item">
+           <h3>{{ .judul }}</h3>
+           <p class="description"><i class="bi bi-geo"></i>{{ .lokasi }}</p>
+           <p class="description"><i class="bi bi-calendar-day"></i>{{ .hari }}</p>
+           <p class="description"><i class="bi bi-clock"></i>{{ .jamMulai }}</p>
+
+         </div>
+       </div><!-- End Pricing Item -->
+       {{ end }}
+
+    </div>
+    <div class="row" style="margin-top: 20px;">
+        <div class="text-center col-lg-12">
+            <a href="/agenda" class="btn btn-success" style="background-color: #1bbd36;">Agenda Selengkapnya</a>
+        </div>
+    </div>
+
+   </div>
+
+ </section><!-- /Pricing Section -->
+ {{ end }}
+
+{{ end }}

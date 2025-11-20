@@ -1,0 +1,8 @@
+---
+author: inspektorat
+title: "Permohonan Informasi Yang Dikecualikan Dari Inspektorat Provinsi Kalimantan Barat"
+date: 2024-05-30 08:12:55
+---
+<p class="MsoNormal" style="text-align: justify;"><span style="font-family: 'Arial',sans-serif;">Berdasarkan Undang-Undang Nomor 14 Tahun 2008 tentang Keterbukaan Informasi Publik, terdapat kategori Informasi Publik mengenai Informasi Publik yang terbuka dan dikecualikan. Informasi yang Dikecualikan adalah informasi yang tidak dapat diakses oleh Pemohon Informasi Publik sebagaimana dimaksud dalam Undang-Undang Nomor 14 Tahun 2008 tentang Keterbukaan Informasi Publik.</span></p>
+<p class="MsoNormal" style="text-align: justify;"><span style="font-family: 'Arial',sans-serif;">Informasi Publik yang Dikecualikan bersifat ketat dan terbatas, sehingga pengecualian Informasi Publik harus sesuai dengan undang-undang, kepatuhan, dan kepentingan umum yang didasarkan pada pengujian tentang konsekuensi yaitu suatu pengujian tentang konsekuensi yang timbul apabila suatu informasi diberikan kepada masyarakat dengan mempertimbangkan secara saksama bahwa menutup informasi publik dapat melindungi kepentingan yang lebih besar daripada membukanya atau sebaliknya. Berikut ini daftar Informasi Yaang Dikecualikan dari Inspektorat Provinsi Kalimantan Barat</span></p>
+<p class="MsoNormal" style="text-align: justify;"><span style="font-family: 'Arial',sans-serif;">&nbsp;<a title="INFORMASI YANG DIKECUALIKAN DARI INSPEKTORAT PROV KALBAR.pdf" href="../../../storage/inspektorat.kalbarprov.app/file/eqPRHGjnpPkCe72NGl1r.pdf" target="_blank" rel="noopener">INFORMASI YANG DIKECUALIKAN DARI INSPEKTORAT PROV KALBAR.pdf</a></span></p>

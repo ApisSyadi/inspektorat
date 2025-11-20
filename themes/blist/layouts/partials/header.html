@@ -1,0 +1,173 @@
+<header class='flex flex-wrap justify-between items-center mx-auto sticky top-0 z-50 w-full {{ default "bg-defaultColor" .Site.Params.ascentColor }} dark:bg-gray-900'>
+  <style>
+    ul.mobile-menu li a {
+      font-size: 0.9rem;
+      padding: 8px;
+      transition: color 0.3s ease, background-color 0.3s ease, border 0.3s ease;
+    }
+
+    ul.mobile-menu li a:hover{
+      color: #064e3b;
+      border-radius: 8px;
+    }
+
+    .dark ul.mobile-menu li a:hover{
+      color: #fbbf24;
+      border-radius: 8px;
+    }
+
+
+    ul.mobile-menu li .language-dropdown a {
+      padding: 11px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+    }
+
+    ul.mobile-menu li .language-dropdown a:hover {
+      color: #064e3b;
+    }
+
+    .dark ul.mobile-menu li .language-dropdown a:hover {
+      color: #fbbf24;
+    }
+
+
+  </style>
+
+  <div class="flex flex-row justify-between w-full">
+    <a href='{{ absURL "/" }}' class="flex items-center flex-initial text-2xl font-extrabold capitalize break-words text-pretty">
+      {{ if .Site.Params.logo }}
+      <img src='{{ absURL "/" }}kalbar-logo.png' alt="{{ .Site.Title }}" class="mx-5 my-2" style="width: 48px;" />
+      {{ else }}
+      <img src='{{ absURL "/" }}kalbar-logo.png' alt="{{ .Site.Title }}" class="mx-5 my-0" style="width: 48px;" />
+      {{ end }}
+      <span class="mr-12 font-bold text-white break-words hover:text-green-900 dark:hover:text-yellow-400 text-pretty " style="font-size: 20px;">{{ .Site.Title }}</span>
+    </a>
+    <button id="mobile-menu-button" class="flex-initial text-white mobile-menu-button md:hidden hover:text-green-900 dark:hover:text-yellow-400">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <line x1="4" y1="8" x2="20" y2="8" />
+        <line x1="4" y1="16" x2="20" y2="16" />
+      </svg>
+    </button>
+    {{ $accent := .Site.Params.ascentColor }}
+    <ul id="mobile-menu" class=' text-gray-100  mobile-menu  absolute z-10 pb-6 md:p-0 top-full w-full md:w-auto md:relative hidden md:flex md:flex-row flex-auto place-self-end text-pretty flex-col place-content-end md:items-center gap-4 lg:gap-2
+    {{ default "bg-defaultColor" $accent }} dark:bg-gray-900
+     mr-8 my-auto' >
+      <li class="my-4"><a href='{{ absURL "/" }}'>Beranda</a></li>
+      {{ range .Site.Menus.main }}
+        {{ $menuURL := .URL }}
+        {{ $menuName := .Name }}
+        {{ $menuHasChildren := .HasChildren }}
+        {{ if $menuHasChildren }}
+        <li class="relative px-4 my-2 cursor-pointer md:px-1">
+          <span class="flex items-center gap-2 language-switcher">
+            <a>{{ $menuName }}</a>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M18 15l-6 -6l-6 6h12" transform="rotate(180 12 12)"></path>
+            </svg>
+          </span>
+          <div class='language-dropdown w-screen md:w-52 absolute top-3/4 mt-2 flex-col gap-4 md:gap-2 {{ default "bg-defaultColor" $accent }} dark:bg-gray-900 z-10 hidden' style="border-radius: 8px; border-color: green; border-style: solid; border-width:1px">
+            {{ range .Children }}
+              <a class="px-5 py-4 md:py-2" href="{{ .URL }}">{{ .Name }}</a>
+            {{ end }}
+          </div>
+        </li>
+        {{ else }}
+          <li class="px-4 my-4 md:px-1"><a href="{{ $menuURL }}">{{ $menuName }}</a></li>
+        {{ end }}
+      {{ end }}
+        {{ if hugo.IsMultilingual }}
+        {{ if ge (len .Site.Languages) 3 }}
+          <li class="relative my-2 cursor-pointer">
+            <span class="flex items-center gap-2 language-switcher">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <circle cx="12" cy="12" r="9" />
+                <line x1="3.6" y1="9" x2="20.4" y2="9" />
+                <line x1="3.6" y1="15" x2="20.4" y2="15" />
+                <path d="M11.5 3a17 17 0 0 0 0 18" />
+                <path d="M12.5 3a17 17 0 0 1 0 18" />
+              </svg>
+              <a>{{ i18n "languageSwitcherLabel" }}</a>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M18 15l-6 -6l-6 6h12" transform="rotate(180 12 12)" />
+              </svg>
+            </span>
+            <div class='language-dropdown absolute top-full mt-2 left-0 flex-col gap-2 {{ default "bg-defaultColor" .Site.Params.ascentColor }} dark:bg-gray-900 dark:text-white z-10 hidden'>
+              {{ range .Site.Languages }}
+                {{ if not (eq .Lang $.Site.Language.Lang) }}
+                  <a class="px-3 py-2 hover:bg-gray-200 dark:hover:bg-gray-700" href="/{{ .Lang }}" lang="{{ .Lang }}">{{ default .Lang .LanguageName }}</a>
+                {{ end }}
+              {{ end }}
+            </div>
+          </li>
+        {{ else }}
+          <li class="flex items-center my-2">
+            {{ range .Site.Languages }}
+              {{ if not (eq .Lang $.Site.Language.Lang) }}
+                <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <circle cx="12" cy="12" r="9" />
+                  <line x1="3.6" y1="9" x2="20.4" y2="9" />
+                  <line x1="3.6" y1="15" x2="20.4" y2="15" />
+                  <path d="M11.5 3a17 17 0 0 0 0 18" />
+                  <path d="M12.5 3a17 17 0 0 1 0 18" />
+                </svg>
+                <a href="/{{ .Lang }}" lang="{{ .Lang }}">{{ default .Lang .LanguageName }}</a>
+              {{ end }}
+            {{ end }}
+          </li>
+        {{ end }}
+      {{ end }}
+      {{ if .Site.Params.darkModeToggle }}
+      <li class="grid place-items-center">
+        <span class="inline-block cursor-pointer toggle-dark-mode">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <circle cx="12" cy="12" r="3" />
+            <line x1="12" y1="5" x2="12" y2="5.01" />
+            <line x1="17" y1="7" x2="17" y2="7.01" />
+            <line x1="19" y1="12" x2="19" y2="12.01" />
+            <line x1="17" y1="17" x2="17" y2="17.01" />
+            <line x1="12" y1="19" x2="12" y2="19.01" />
+            <line x1="7" y1="17" x2="7" y2="17.01" />
+            <line x1="5" y1="12" x2="5" y2="12.01" />
+            <line x1="7" y1="7" x2="7" y2="7.01" />
+          </svg>
+        </span>
+      </li>
+    {{ end }}
+  </ul>
+
+  </div>
+
+  <!-- Uncomment the sections below if needed -->
+  <!--
+  {{ if .Site.Params.enableSearch }}
+    <li class="grid place-items-center">
+      <span class="inline-block cursor-pointer open-search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <circle cx="10" cy="10" r="7" />
+          <line x1="21" y1="21" x2="15" y2="15" />
+        </svg>
+      </span>
+    </li>
+    {{ end }}
+  -->
+
+
+
+  <script>
+  $(document).ready(function() {
+    $('#mobile-menu li').click(function() {
+      $('#mobile-menu li').removeClass('active');
+      $(this).addClass('active');
+    });
+  });
+</script>
+
+</header>

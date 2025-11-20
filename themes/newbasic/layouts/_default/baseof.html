@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body class="index-page">
+    <style type="text/css">
+        /* ============================
+   Root Variables
+============================ */
+:root {
+  --color-black: #000;
+  --color-white: #fff;
+  --color-gray: #e0e0e0;
+  --color-primary: #00aa48;
+  --switch-height: 26px;
+  --switch-width: 170px;
+}
+
+/* ============================
+   Greyscale Mode
+============================ */
+.greyscaleall {
+  filter: grayscale(100%);
+}
+
+/* ============================
+   Switch Button (On/Off)
+============================ */
+.btn-container {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.mycheckbox {
+  font-size: 12px;
+  color: var(--color-black);
+  font-weight: 500;
+}
+
+.btn-color-mode-switch {
+  display: inline-block;
+  position: relative;
+}
+
+.btn-color-mode-switch-inner {
+  width: var(--switch-width);
+  height: var(--switch-height);
+  background: var(--color-gray);
+  border-radius: var(--switch-height);
+  transition: 0.3s;
+  display: block;
+  position: relative;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-color-mode-switch-inner::before,
+.btn-color-mode-switch-inner::after {
+  position: absolute;
+  top: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-color-mode-switch-inner::before {
+  content: attr(data-on);
+  right: 25px;
+}
+
+.btn-color-mode-switch-inner::after {
+  content: attr(data-off);
+  width: calc(var(--switch-width) / 2 - 5px);
+  height: calc(var(--switch-height) - 4px);
+  background: var(--color-white);
+  border-radius: var(--switch-height);
+  left: 2px;
+  text-align: center;
+  padding: 2px 0;
+  box-shadow: 0 0 6px -2px #111;
+  transition: 0.3s;
+}
+
+/* Checkbox */
+.btn-color-mode-switch input[type="checkbox"] {
+  cursor: pointer;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  top: 0;
+}
+
+/* Checked State */
+.btn-color-mode-switch input[type="checkbox"]:checked + .btn-color-mode-switch-inner {
+  color: var(--color-black);
+}
+
+.btn-color-mode-switch input[type="checkbox"]:checked + .btn-color-mode-switch-inner::after {
+  content: attr(data-on);
+  left: calc(var(--switch-width) / 2 - 5px);
+}
+
+.btn-color-mode-switch input[type="checkbox"]:checked + .btn-color-mode-switch-inner::before {
+  content: attr(data-off);
+  left: 15px;
+}
+
+/* ============================
+   Toolbar Disabilitas
+============================ */
+.toolbar-disabilitas {
+  position: fixed;
+  top: 35%;
+  left: 0;
+  z-index: 999;
+  text-align: center;
+  background: transparent !important;
+}
+
+.open-toolbar {
+  margin-top: 10%;
+  padding: 8px 5px 3px;
+  height: 50px;
+  width: 50px;
+  border: none;
+  background: var(--color-primary);
+}
+
+/* Slide Content */
+.groupcontenttoolbar {
+  display: flex;
+  background: transparent !important;
+  transform: translateX(-180px);
+  transition: transform 0.6s;
+}
+
+.toolbar-disabilitas.show-toolbar .groupcontenttoolbar {
+  transform: translateX(0);
+}
+
+/* Content Box */
+.contenttoolbar_disabilitas {
+  margin-top: 10%;
+  padding-top: 15px;
+  border: 1px solid var(--color-black);
+  background: var(--color-white);
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 10px rgb(0 0 0 / 0.2);
+}
+
+/* Text Styles */
+.titletools {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  padding: 0 5px;
+  color: var(--color-black);
+}
+
+.subtitletools,
+.subtitletoolsactive {
+  font-size: 12px;
+  margin-bottom: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.subtitletools {
+  color: var(--color-black);
+}
+
+.subtitletools:hover,
+.subtitletools:focus,
+.subtitletools:active,
+.subtitletoolsactive {
+  background: var(--color-black) !important;
+  color: var(--color-white);
+  font-weight: 700;
+}
+
+.flexrowdata {
+  display: flex;
+  flex-direction: row;
+}
+
+/* UserWay button overrides */
+body .uwy.userway_p1 .userway_buttons_wrapper {
+  top: 11%;
+  left: calc(100vw - 30px);
+}
+
+body .uwy.userway_p7 .userway_buttons_wrapper {
+  top: 11%;
+  left: 15px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .toolbar-disabilitas {
+    top: 60%;
+  }
+}
+
+    </style>
+    <span id="loadmodaldisabilitas"></span>
+    <header id="header" class="header d-flex align-items-center sticky-top">
+      {{ partial "header.html" . }}
+    </header>
+    <main class="main">
+      {{ block "main" . }}{{ end }}
+    </main>
+    <footer id="footer" class="footer dark-background">
+      {{ partial "footer.html" . }}
+    </footer>
+    <!-- Scroll Top -->
+    <a href="#" id="scrolltop" class="scroll-top d-flex align-items-center justify-content-center">
+        <i class="bi bi-arrow-up-short"></i>
+    </a>
+
+    <!-- Preloader -->
+    <div id="preloader"></div>
+
+    {{ partialCached "head/js.html" . }}
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+{{/*  {{ with resources.Get "js/loadmodaldisabilitas.js" }}  */}}
+{{/*  <script src="{{ .RelPermalink }}"></script>  */}}
+{{/*  {{ end }}  */}}
+<script src="https://website-widgets.pages.dev/dist/sienna.min.js" defer></script>
+<script>
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const fetchJson = (url, callback) => {
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => callback(null, data))
+                .catch(error => callback(error, null));
+        };
+        const searchBox = document.querySelector('.searchBox');
+        if (searchBox) {
+            new PagefindUI({
+                element: ".searchBox",
+                showSubResults: true,
+                translations: {
+                    placeholder: "Cari di sini...",
+                    zero_results: "[SEARCH_TERM] tidak dapat ditemukan",
+                    clear_search: "Hapus pencarian",
+                },
+                pageSize: 10,
+            });
+        }
+        function updateVisitorCount(site) {
+            const url = `https://newawdi.test/api/analytics/visitors/${site}`;
+            fetchJson(url, (error, data) => {
+                if (error) {
+                    console.error('Error fetching visitor count:', error);
+                    return;
+                }
+                console.log('Visitor count data:', data);
+                const visitorCountToday = document.getElementById('visitor-count-today');
+                const visitorCountThisMonth = document.getElementById('visitor-count-this-month');
+                const visitorCountThisYear = document.getElementById('visitor-count-this-year');
+                if (visitorCountToday) {
+                    visitorCountToday.textContent = 'Today : '+ data.totalVisitorsToday;
+                }
+                if (visitorCountThisMonth) {
+                    visitorCountThisMonth.textContent = 'This Month : '+ data.totalVisitorsThisMonth;
+                }
+                if (visitorCountThisYear) {
+                    visitorCountThisYear.textContent = 'This Year : '+ data.totalVisitorsThisYear;
+                }
+            });
+        }
+        const site = '{{ .Site.Params.domain }}';
+        updateVisitorCount(site);
+    });
+</script>
+</html>

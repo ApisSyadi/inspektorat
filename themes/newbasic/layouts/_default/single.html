@@ -1,0 +1,72 @@
+{{ define "main" }}
+<!-- Page Title -->
+    <div class="page-title accent-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        {{ with .Parent }}
+        <h1 class="mb-2 mb-lg-0">{{ .LinkTitle }}</h1>
+        {{ end }}
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li class="current">{{ .Title }}</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+     <div class="container">
+      <div class="row">
+
+        <div class="col-lg-12">
+
+          <!-- Blog Details Section -->
+          <section id="blog-details" class="blog-details section">
+            <div class="container">
+
+              <article class="article">
+
+                <div class="post-img">
+                  <img src="" alt="" class="img-fluid">
+                </div>
+
+                <h2 class="title">{{ .Title }}</h2>
+
+                <div class="meta-top">
+                  <ul>
+                    {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+                    {{ $dateHuman := .Date | time.Format ":date_long" }}
+                    <li class="d-flex align-items-center">
+                        {{/*  <i class="bi bi-clock"></i> <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>  */}}
+                    </li>
+                  </ul>
+                </div><!-- End meta top -->
+
+                <div class="content">
+                    {{ .Content }}
+                </div><!-- End post content -->
+
+                <div class="meta-bottom">
+                  <i class="bi bi-folder"></i>
+                  <ul class="cats">
+                    {{ with .Parent }}
+                    <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+                    {{ end }}
+                  </ul>
+
+                  <i class="bi bi-tags"></i>
+                  <ul class="tags">
+                    <li><a href="#"></a></li>
+                  </ul>
+                </div><!-- End meta bottom -->
+
+              </article>
+
+            </div>
+          </section><!-- /Blog Details Section -->
+        </div><!-- End col -->
+
+      </div><!-- End row -->
+    </div><!-- End container -->
+
+
+  {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+{{ end }}

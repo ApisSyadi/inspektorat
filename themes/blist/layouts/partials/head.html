@@ -1,0 +1,125 @@
+<head>
+    {{ if isset .Site.Params "analytics" }}
+    {{ .Site.Params.analytics | safeHTML }}
+    {{ end }}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href='{{ if isset .Site.Params "favicon" }}{{ .Site.Params.favicon }}{{ else }}/favicon.ico{{ end }}'>
+
+  <title>
+  {{ if not .IsHome }}{{ .Title }} - {{ end }}{{ site.Title }}
+  </title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end -}}" />
+  {{- if .Keywords }}
+  <meta name="keywords" content='{{ delimit .Keywords "," }}' />
+  {{ end -}}
+  {{- if .Params.Author }}
+  <meta name="author" content="{{ .Params.Author}}" />
+  {{ end -}}
+
+  {{ hugo.Generator }}
+
+  {{- $styles := resources.Get "css/styles.css" | postCSS (dict "config" "./assets/css/postcss.config.js") -}}
+  {{ if hugo.IsServer }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" />
+  {{ else }}
+  {{- $styles := $styles | css.PostCSS | minify | fingerprint -}}
+  {{/*  <link
+    rel="stylesheet"
+    href="{{ $styles.Permalink }}"
+    integrity="{{ $styles.Data.Integrity }}"
+  />  */}}
+  <link rel="stylesheet" href="{{ $styles.Permalink }}" />
+  {{ end }}
+
+
+
+  <!-- Katex support -->
+  {{ if .Params.math }}
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css"
+      integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv"
+      crossorigin="anonymous"
+    >
+
+    <script defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js"
+      integrity="sha384-483A6DwYfKeDa0Q52fJmxFXkcPCFfnXMoXblOkJ4JcA8zATN6Tm78UNL72AKk+0O"
+      crossorigin="anonymous"
+    ></script>
+
+    <script defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/contrib/auto-render.min.js"
+      integrity="sha384-yACMu8JWxKzSp/C1YV86pzGiQ/l1YUfE8oPuahJQxzehAjEt2GiQuy/BIvl9KyeF"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script>
+  {{ end }}
+
+  {{ range .AlternativeOutputFormats -}}
+    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .RelPermalink $.Site.Title | safeHTML }}
+  {{ end -}}
+
+  {{ template "_internal/opengraph.html" . }}
+  {{ template "_internal/twitter_cards.html" . }}
+  {{ template "_internal/schema.html" . }}
+
+  {{ if gt (len .Site.Languages) 1}}
+  <meta name="lang" content="{{ .Site.Language }}" />
+  {{ end }}
+  <link rel="stylesheet" href='{{ "/assets/owl.carousel.min.css" | relURL }}'>
+  <script src="{{ "jquery-3.7.0.min.js" | relURL }}"></script>
+  <script src="{{ "owl.carousel.min.js" | relURL }}"></script>
+  <style>
+    .owl-carousel .owl-item img {
+      object-fit: cover;
+    }
+    iframe{
+    width: 100%;
+    }
+    .mobile-menu .relative:hover .language-dropdown {
+        display: flex;
+    }
+
+    .language-dropdown {
+      display: none;
+    }
+
+  </style>
+  <link
+  rel="stylesheet"
+  href="{{ "swiper/swiper-bundle.min.css" | relURL }}"
+/>
+
+<script src="{{ "swiper/swiper-bundle.min.js" | relURL }}"></script>
+
+<script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const observerOptions = {
+              root: null,
+              rootMargin: '0px',
+              threshold: 0.3
+          };
+
+          const observer = new IntersectionObserver((entries, observer) => {
+              entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                      entry.target.classList.add('show');
+                      observer.unobserve(entry.target);
+                  }
+              });
+          }, observerOptions);
+
+          const elements = document.querySelectorAll('.fade-in');
+          elements.forEach(element => {
+              observer.observe(element);
+          });
+      });
+  </script>
+
+
+
+
+
+</head>

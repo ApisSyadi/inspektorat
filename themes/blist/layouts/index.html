@@ -1,0 +1,232 @@
+{{ define "main" }}
+
+<!-- Running Text -->
+{{ $runningText := .Site.Params.running_text }}
+{{ if $runningText }}
+<div class="w-full max-w-full p-4 bg-white border border-gray-300 rounded shadow">
+    <div class="marquee">
+        <div class="marquee-text">
+            <p class="text-lg font-semibold text-black" style="font-size: 0.9rem;">{{ range $runningText }}{{ .text }}&nbsp;&nbsp;&nbsp;&nbsp;    {{ end }}</p>
+        </div>
+    </div>
+</div>
+{{ end }}
+
+    <style>
+    .marquee {
+        overflow: hidden;
+        white-space: nowrap;
+        box-sizing: border-box;
+    }
+    .marquee-text {
+        display: inline-block;
+        padding-left: 100%;
+        animation: marquee 20s linear infinite;
+    }
+
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
+
+    /* CSS styling for Swiper */
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+
+
+  .container {
+    white-space: nowrap;
+  }
+
+  .zoom-in {
+    transition: transform 0.3s ease;
+  }
+
+  .zoom-in:hover {
+    transform: scale(1.1);
+  }
+
+</style>
+<!-- Swiper -->
+
+{{ $sliderImages := .Site.Params.sliders.images }}
+
+{{ if len $sliderImages }}
+<div class="swiper mySwiper">
+  <div class="swiper-wrapper">
+    {{ range $sliderImages }}
+      <div class="swiper-slide">
+        <img src="sliders/{{ .url }}" alt="Slider Image" style="width:100%">
+      </div>
+    {{ end }}
+  </div>
+  <div class="swiper-button-next"></div>
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-pagination"></div>
+</div>
+{{ end }}
+  <!-- Initialize Swiper -->
+  <script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    var swiper = new Swiper(".mySwiper", {
+      spaceBetween: 30,
+      centeredSlides: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+
+
+  });
+</script>
+
+
+
+<script>
+  function scrollRight() {
+    const container = document.querySelector('.scroll-content');
+    const scrollAmount = 100;
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+
+
+    if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+      container.scrollTo({ left: 0, behavior: 'auto' });
+    }
+  }
+
+  function startAutoScroll() {
+    scrollRight();
+    setInterval(scrollRight, 1000);
+  }
+
+  window.onload = function() {
+    startAutoScroll();
+  };
+</script>
+<div class="grid gap-4 bg-white md:grid-cols-1 lg:gap-x-16 fade-in dark:bg-gray-200" id="animateMe">
+  <div>
+    {{ $frontBundle := .Site.Params.frontBundle | default "berita" }}
+    {{ $section := .Site.GetPage $frontBundle }}
+    {{ $title := $section.Title | default ($frontBundle | title) }}
+    <h2 class="mt-5 mb-5 text-2xl font-bold text-center dark:text-gray-800">{{ $title }}</h2>
+    <div class="grid grid-cols-1 gap-4 px-5 mx-auto mb-8 min-h-72 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+      {{ range first 6 (where .Site.RegularPages.ByDate.Reverse "Type" $frontBundle)  }}
+      <div class="w-full h-full rounded-lg ">
+        {{- partial "blog-card.html" . -}}
+      </div>
+      {{ end }}
+    </div>
+  </div>
+  {{ if gt (len (where .Site.RegularPages.ByDate.Reverse "Type" $frontBundle)) 6 }}
+  <div class="mt-4 mb-8 text-center">
+    <a class='px-8 py-3 rounded transition-colors {{ default "bg-defaultColor" .Site.Params.ascentColor }} text-gray-100 hover:text-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:text-white' href="{{ lower (replace $frontBundle " " "-") | absLangURL }}" lang="{{ .Lang }}">
+      {{ i18n "morePosts" }}
+    </a>
+  </div>
+  {{ end }}
+</div>
+
+<div class="bg-gray-200 dark:bg-gray-700">
+    {{ $frontBundle2 := .Site.Params.frontBundle2 | default "gallery" }}
+    {{ $section := .Site.GetPage $frontBundle2 }}
+    {{ $title := $section.Title | default ($frontBundle2 | title) }}
+
+  <div class="pb-5 scroll-container">
+    <h2 class="mt-5 text-2xl font-bold text-center text-gray-800 dark:text-gray-100">{{ $title }}</h2>
+    <div class="mb-5 scroll-content animation fade-in h-96" id="animateMe2">
+      {{ range first 9 (where .Site.RegularPages.ByDate.Reverse "Type" $frontBundle2) }}
+      <div class="h-full mb-2 rounded-lg">
+        <div class="h-full transition duration-500 ease-in-out content hover">{{- partial "blog-card.html" . -}}</div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+
+
+<!--<div class="grid gap-4 md:grid-cols-1 lg:gap-x-16">
+    <div>
+      {{ $frontBundle := .Site.Params.frontBundle | default "berita" }}
+      <h2 class="mt-6 text-2xl font-bold text-center">{{ $frontBundle | title }}</h2>
+      <div class="container grid grid-cols-1 gap-4 p-6 mx-auto md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+        {{ range first 6 (where .Site.RegularPages.ByDate.Reverse "Type" $frontBundle)  }}
+          {{- partial "blog-card.html" . -}}
+        {{ end }}
+      </div>
+
+      {{ if gt (len (where .Site.RegularPages.ByDate.Reverse "Type" $frontBundle)) 6 }}
+      <div class="mb-8 text-center">
+        <a class="px-8 py-3 rounded transition-colors {{ .Site.Params.ascentColor | default "bg-pink-50" }}
+          text-gray-500 hover:text-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:text-white"
+          href="{{ (index (.Site.Menus.main) 0).URL | absLangURL }}" lang="{{ .Lang }}">
+          {{ i18n "morePosts" }}
+        </a>
+      </div>
+      {{ end }}
+    </div>-->
+
+<!--<div>
+      {{ $frontBundle2 := .Site.Params.frontBundle2 | default "gallery" }}
+      <h2 class="mt-6 text-2xl font-bold text-center dark:text-black">{{ $frontBundle2 | title }}</h2>
+      <div class="container grid grid-cols-1 gap-1 p-6 mx-auto md:grid-cols-2 lg:grid-cols-3 lg:gap-1">
+        {{ range first 6 (where .Site.RegularPages.ByDate.Reverse "Type" $frontBundle2)  }}
+          {{- partial "blog-card.html" . -}}
+        {{ end }}
+      </div>
+    </div>
+
+
+    {{ if gt (len (where .Site.RegularPages.ByDate.Reverse "Type" $frontBundle2)) 6 }}
+      <div class="mb-8 text-center">
+        <!--<a class="px-8 py-3 rounded transition-colors {{ .Site.Params.ascentColor | default "bg-pink-50" }}
+          text-gray-500 hover:text-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:text-white"
+          href="{{ (index (.Site.Menus.main) 0).URL | absLangURL }}" lang="{{ .Lang }}">
+          {{ i18n "morePosts" }}
+        </a>
+      </div>
+    {{ end }}
+  </div>-->
+  {{ $agenda := .Site.Params.agenda }}
+  {{ if $agenda }}
+  <div class="w-100">
+    <h2 class="mt-6 text-2xl font-bold text-center text-gray-800 dark:text-gray-100">Agenda</h2>
+    <div class="grid grid-cols-1 gap-4 p-6 mx-auto text-gray-800 dark:text-gray-100 md:grid-cols-2 lg:grid-cols-3 lg:gap-8 ">
+      {{ range first 6 $agenda }}
+      <div class="p-4 bg-white rounded-lg shadow-lg dark:bg-gray-900">
+        <h3 class="text-lg font-bold">{{ .hari }}</h3>
+        <p>{{ .lokasi }}</p>
+        <p>{{ .jamMulai }} - {{ .jamSelesai }}</p>
+        <p class="overflow-auto break-words">{{ .judul }}</p>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+</div>
+
+
+
+  {{- partial "intro.html" . -}}
+{{ end }}
+

@@ -1,0 +1,28 @@
+
+{{- with resources.Get "vendor/bootstrap/js/bootstrap.bundle.min.js" |js.Build }}
+<script src="{{ .RelPermalink }}"></script>
+{{- end }}
+{{- with resources.Get "vendor/aos/aos.js" }}
+<script src="{{ .RelPermalink }}"></script>
+{{- end }}
+{{- with resources.Get "vendor/glightbox/js/glightbox.min.js" }}
+<script src="{{ .RelPermalink }}"></script>
+{{- end }}
+{{- with resources.Get "vendor/imagesloaded/imagesloaded.pkgd.min.js" }}
+<script src="{{ .RelPermalink }}"></script>
+{{- end }}
+{{- with resources.Get "vendor/isotope-layout/isotope.pkgd.min.js" }}
+<script src="{{ .RelPermalink }}"></script>
+{{- end }}
+{{ with resources.Get "vendor/waypoints/noframework.waypoints.js" }}
+<script src="{{ .RelPermalink }}"></script>
+{{ end }}
+{{- with resources.Get "vendor/swiper/swiper-bundle.min.js" }}
+<script src="{{ .RelPermalink }}"></script>
+{{- end }}
+
+{{- with resources.Get "js/main.js" | js.Build }}
+<script src="{{ .RelPermalink }}"></script>
+{{- end }}
+
+<script src="/pagefind/pagefind-ui.js"></script>

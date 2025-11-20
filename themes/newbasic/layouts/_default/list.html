@@ -1,0 +1,60 @@
+{{ define "main" }}
+<!-- Page Title -->
+<div class="page-title accent-background">
+    <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">{{ .Title }}</h1>
+        <nav class="breadcrumbs">
+            <ol>
+                <li><a href="index.html">Home</a></li>
+                <li class="current">{{ .Title }}</li>
+            </ol>
+        </nav>
+    </div>
+</div><!-- End Page Title -->
+
+
+{{ $type := .Type }}
+{{ $paginator := .Paginate .Pages.ByDate.Reverse 12 }}
+<section id="blog-posts" class="blog-posts section">
+    <div class="container">
+        <div class="row gy-4">
+            {{ range $paginator.Pages }}
+            <div class="col-lg-4">
+                <article class="position-relative h-100">
+                    <div class="overflow-hidden post-img position-relative">
+                        {{ with .Params.thumbnail }}
+                        <img src="{{ . }}" class="img-fluid" alt="">
+                        {{ end }}
+                    </div>
+
+                    <div class="post-content d-flex flex-column">
+                        <h3 class="post-title">{{ .LinkTitle }}</h3>
+                        <div class="meta d-flex align-items-center">
+                        </div>
+                        {{ if eq $type "article" }}
+                        <p>{{ .Content | plainify | truncate 50 }}</p>
+                        {{ end }}
+                        <hr>
+                        {{ if and .Params.eurl (ne .Params.eurl "") }}
+                        <a href="{{ .Params.eurl }}" class="readmore stretched-link"><span>Link</span><i class="bi bi-arrow-right"></i></a>
+                        {{ else }}
+                        <a href="{{ .RelPermalink }}" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+                        {{ end }}
+                    </div>
+                </article>
+            </div><!-- End post list item -->
+            {{ end }}
+        </div>
+    </div>
+</section><!-- /Blog Posts Section -->
+<!-- Blog Pagination Section -->
+<section id="blog-pagination" class="blog-pagination section">
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            {{ template "_internal/pagination.html" . }}
+        </div>
+    </div>
+
+</section><!-- /Blog Pagination Section -->
+
+{{ end }}

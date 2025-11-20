@@ -1,0 +1,16 @@
+[[params.homepage.social.icons]]
+website = "twitter"
+url = "https://twitter.com/i/flow/login?redirect_after_login=%2Fitprovkalbar"
+
+[[params.homepage.social.icons]]
+website = "youtube"
+url = "https://www.youtube.com/@INSPEKTORATPROVKALBAR"
+
+[[params.homepage.social.icons]]
+website = "instagram"
+url = "https://www.instagram.com/itprovkalbar/"
+
+[[params.homepage.social.icons]]
+website = "facebook"
+url = "https://www.facebook.com/itprovkalbar/?locale=id_ID"
+

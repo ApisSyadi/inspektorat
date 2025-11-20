@@ -1,0 +1,205 @@
+/* Tailwind base - put variables under: tailwind.config.js */
+@import "node_modules/tailwindcss/base";
+/* Tailwind component classes registered by plugins*/
+@import "node_modules/tailwindcss/components";
+/* Site Specific */
+@import "assets/css/site";
+/* Paginator */
+@import "assets/css/paginator";
+/* Tailwind's utility classes - generated based on config file */
+@import "node_modules/tailwindcss/utilities";
+
+@layer components {
+  details.toc[open] summary ~ * {
+    animation: slideUp 0.25s ease-in-out;
+  }
+
+  @keyframes slideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  details.toc[open] summary svg {
+    @apply transform duration-200 rotate-180 ease-in-out;
+  }
+
+  details.toc > ul {
+    @apply ml-4;
+  }
+
+  details.toc ul {
+    @apply list-none;
+    margin-top: 0.125rem /* 2px */ !important;
+    margin-bottom: 0.125rem /* 2px */ !important;
+  }
+  details.toc ul li {
+    margin-top: 0.125rem /* 2px */ !important;
+    margin-bottom: 0.125rem /* 2px */ !important;
+  }
+  details.toc ul li:before {
+    @apply rounded-none bg-gray-400;
+  }
+  details.toc ul li a {
+    @apply no-underline text-gray-700 dark:text-gray-200 text-base;
+  }
+
+  a:empty {
+    display: none;
+  }
+}
+body {
+  margin: 0;
+}
+
+main {
+  opacity: 0; /* Konten utama tidak terlihat awalnya */
+  transition: opacity 1s ease; /* Transisi untuk opacity */
+}
+main.fade-in {
+  opacity: 1; /* Terapkan opacity penuh setelah transisi */
+}
+
+
+
+.fade-in {
+            opacity: 0;
+            transform: translateY(0px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+        .fade-in.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+.content {
+  background-color: #ffffff;
+  margin: 20px 0;
+  padding: 10px;
+  box-shadow: 4px -2px 4px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.scroll-container {
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.scroll-content {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+}
+
+.scroll-content::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
+}
+
+.scroll-content > div {
+  flex: 1 1 calc(33.333% - 20px); /* Tiga item per baris dengan gap */
+  min-width: 300px; /* Sesuaikan berdasarkan ukuran kartu Anda */
+  margin: 0 15px; /* Memberikan lebih banyak ruang di sekitar elemen untuk mengakomodasi skala */
+  padding: 20px;
+  box-sizing: border-box;
+  white-space: normal;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.scroll-content > div .content {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Selector untuk teks dalam konten */
+.scroll-content > div .content * {
+  transition: color 0.3s ease; /* Menambahkan transisi warna pada semua elemen dalam .content */
+}
+
+.scroll-content > div:hover .content * {
+  color: #000000; /* Ubah warna teks sesuai keinginan Anda */
+  transition: ease-in-out;
+}
+
+.arrow-left,
+.arrow-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(6, 6, 6, 0.7);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.arrow-left:hover,
+.arrow-right:hover {
+  background-color: rgba(16, 13, 13, 0.891);
+}
+
+.arrow-left {
+  left: 10px;
+}
+
+.arrow-right {
+  right: 10px;
+}
+
+
+.loader {
+  border-top-color: #3498db;
+  border-left-color: #3498db;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.zoom-in {
+  transition: transform 0.3s ease;
+}
+
+.zoom-in:hover {
+  transform: scale(1.1);
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: 100%; /* Satu kolom dengan lebar 100% pada layar yang lebih besar dari 640px */
+  }
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 50% 50%; /* Dua kolom dengan lebar masing-masing 50% pada layar yang lebih besar dari 768px */
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 33.33% 33.33% 33.33%; /* Tiga kolom dengan lebar masing-masing 33.33% pada layar yang lebih besar dari 1024px */
+  }
+}
+
+
+
+

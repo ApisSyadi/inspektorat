@@ -1,0 +1,74 @@
+{{ define "main" }}
+{{ with resources.Get "/vendor/fullcalendar6/dist/index.global.min.js" }}
+<script src="{{ .RelPermalink }}"></script>
+{{ end }}
+
+<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css"/>
+
+<!-- Page Title -->
+    <div class="page-title accent-background">
+        <div class="container d-lg-flex justify-content-between align-items-center">
+            <h1 class="mb-2 mb-lg-0">{{ .Site.Params.title }}</h1>
+            <nav class="breadcrumbs">
+                <ol>
+                    <li><a href="index.html">Home</a></li>
+                    <li class="current">{{ .Title }}</li>
+                </ol>
+            </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    <section id="portfolio" class="portfolio section">
+        <div class="container" data-aos="fade-up">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add Tippy.js CDN -->
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                eventDidMount: function(info) {
+                    var tooltipContent = `<strong>${info.event.title}</strong>
+                    <br><i class="bi bi-geo-alt"></i> ${info.event.extendedProps.location}
+                    <br><i class="bi bi-clock"></i> ${info.event.start.toLocaleString('id-ID', { hour: 'numeric', minute: 'numeric' })}`;
+                    if (info.event.end) {
+                        tooltipContent += `- ${info.event.end.toLocaleString('id-ID', { hour: 'numeric', minute: 'numeric' })}`;
+                    }
+                    console.log(info.event);
+                    if (typeof tippy !== 'undefined') {
+                        tippy(info.el, {
+                            content: tooltipContent,
+                            placement: 'bottom',
+                            trigger: 'click',
+                            arrow: true,
+                            allowHTML: true,
+                        });
+                    }
+                },
+                events: function(fetchInfo, successCallback, failureCallback) {
+                    fetch('http://awdiv2.kalbarprov.go.id/api/agenda?site=ppid.kalbarprov.go.id')
+                        .then(response => response.json())
+                        .then(data => {
+                            successCallback(data.data);
+                        })
+                        .catch(error => {
+                            console.error('Error fetching events:', error);
+                            failureCallback(error);
+                        });
+                },
+
+            });
+
+            calendar.render();
+        });
+    </script>
+{{ end }}

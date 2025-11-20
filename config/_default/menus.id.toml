@@ -1,0 +1,91 @@
+[[main]]
+identifier = 'tentang kami'
+name = "TENTANG KAMI"
+url = "/tentang kami"
+weight = 1
+
+
+
+[[main]]
+identifier = 'peraturan'
+name = "PERATURAN"
+url = "/peraturan"
+weight = 2
+
+
+
+[[main]]
+identifier = 'layanan dan publikasi'
+name = "LAYANAN DAN PUBLIKASI"
+url = "/layanan dan publikasi"
+weight = 3
+
+
+
+[[main]]
+identifier = 'informasi'
+name = "INFORMASI"
+url = "/informasi"
+weight = 4
+
+
+
+[[main]]
+identifier = 'informasi publik'
+name = "Informasi Publik"
+parent = "informasi"
+url = "/informasi publik"
+weight = 1
+
+
+
+[[main]]
+identifier = 'berita'
+name = "Berita"
+parent = "informasi"
+url = "/berita"
+weight = 2
+
+
+
+
+[[main]]
+identifier = 'program & kegiatan'
+name = "Program & Kegiatan"
+parent = "informasi"
+url = "/program & kegiatan"
+weight = 3
+
+
+
+[[main]]
+identifier = 'infografis'
+name = "Infografis"
+parent = "informasi"
+url = "/infografis"
+weight = 4
+
+
+
+[[main]]
+identifier = 'album'
+name = "Album"
+url = "/album inspektorat kalimantan barat"
+weight = 5
+
+
+
+[[main]]
+identifier = 'faq'
+name = "FAQ"
+url = "/faq"
+weight = 6
+
+
+
+[[main]]
+identifier = 'search'
+name = "search"
+url = "/search"
+weight = 7
+

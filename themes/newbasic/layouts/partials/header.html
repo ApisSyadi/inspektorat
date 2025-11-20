@@ -1,0 +1,10 @@
+<div class="container position-relative d-flex align-items-center">
+    <a href='{{ absURL "/" }}' class="logo d-flex align-items-center me-auto">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <img src="/kalbar-logo.png" alt='{{ site.Title | plainify | truncate "12" }}' class="img-fluid" onerror="this.onerror=null;this.src='/img/kalbar-logo.png';">
+        <h1 class="sitename">{{ site.Title }}</h1>
+    </a>
+
+    {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+
+</div>  

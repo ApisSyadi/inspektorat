@@ -1,0 +1,9 @@
+---
+author: inspektorat
+title: "Maklumat Pelayanan Inspektorat Provinsi Kalimantan Barat"
+date: 2024-05-30 08:37:16
+---
+<p class="MsoNormal" style="text-align: justify;"><span style="font-size: 12.0pt; mso-bidi-font-size: 11.0pt; line-height: 107%; font-family: 'Arial',sans-serif;">Maklumat pelayanan, adalah salah satu poin penilaian kepatuhan standar pelayanan publik sebagaimana UU No. 25 Tahun 2009 tentang Pelayanan Publik yang dilakukan Ombudsman RI. Jika merujuk pada Pasal 22 Ayat (1) UU Pelayanan Publik, mengamanahkan penyelenggara untuk menyusun dan menetapkan maklumat pelayanan, yang merupakan pernyataan kesanggupan penyelenggara dalam melaksanakan pelayanan sesuai dengan standar pelayanan". Lebih lanjut dalam ayat (2) ditegaskan bahwa Maklumat Pelayanan wajib dipublikasikan secara jelas dan luas.</span></p>
+<p class="MsoNormal" style="text-align: justify;"><span style="font-size: 12.0pt; mso-bidi-font-size: 11.0pt; line-height: 107%; font-family: 'Arial',sans-serif;">Dalam Peraturan Pemerintah No.96 Tahun 2012 tentang Pelaksanaan Undang-Undang Nomor 25 Tahun 2009 Tentang Pelayanan Publik, maklumat pelayanan diartikan sebagai pernyataan tertulis yang berisi keseluruhan rincian kewajiban dan janji yang terdapat dalam standar pelayanan. Maklumat pelayanan dapat diartikan sebagai bentuk kewajiban dan janji penyelenggara layanan, kepada masyarakat sebagai pengguna layanan, untuk melaksanakan standar pelayanan yang telah ditetapkan penyelenggara layanan.</span></p>
+<p>Berikut ini merupakan <strong>"MAKLUMAT PELAYANAN"</strong> dari Inspektorat Provinsi Kalimantan Barat.</p>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="../../../storage/inspektorat.kalbarprov.app/images/8OWb89lGOZx3fnPxhatJ.png" alt="" width="768" height="623" /></p>

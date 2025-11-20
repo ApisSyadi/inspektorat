@@ -1,0 +1,100 @@
+{{ $accent := .Site.Params.ascentColor }}
+  <div class='grid-item h-full p-2 rounded-lg shadow-md hover:{{ default "bg-defaultColor" $accent  }} dark:hover:bg-gray-800 ease-in-out px-4 py-2 m-0' style="width: auto;">
+    {{ if .Params.eurl }}
+    <a href="{{ .Params.eurl }}">
+    {{ else }}
+    <a href="{{ .RelPermalink }}">
+    {{ end }}
+    {{ if .Params.thumbnail }}
+    <div class="relative border-solid">
+      <img src="{{ .Params.thumbnail }}" alt="{{ .Params.title }}" class="rounded-lg shadow-sm w-full h-52 object-contain" />
+      {{ if not (or (or .Site.Params.hideMeta .Params.hideMeta) false) }}
+      {{ if strings.Contains .RelPermalink "/berita/" }}
+      <div class="absolute top-4 right-4 rounded shadow bg-white text-gray-900 dark:bg-gray-900 dark:text-black text-sm px-2 py-0.5" style="background-color: white;">
+        {{ partial "date.html" (dict "date" .Date "language" $.Page.Language "format" "short") }}
+      </div>
+      {{ end }}
+      {{ end }}
+    </div>
+    {{ end }}
+    <div class="my-2 text-l font-normal overflow-ellipsis overflow-hidden hover:text-gray-100 dark:hover:text-gray-100 dark:text-black" style="font-size: 0.9rem;">{{ .Params.title }}</div>
+    {{/*  <div class="">{{ .Params.description }}</div>  */}}
+  </a>
+  {{ if not (or (or .Site.Params.hideOtherLanguages .Params.hideOtherLanguages) false) }}
+    {{ if .IsTranslated -}}
+      <div style="font-style: italic;font-size: smaller;">
+        {{- $sortedTranslations := sort .Translations "Site.Language.Weight" -}}
+        {{- $links := apply $sortedTranslations "partial" "translation_link.html" "." -}}
+        {{- $cleanLinks := apply $links "chomp" "." -}}
+        {{- $linksOutput := delimit $cleanLinks (i18n "translationsSeparator") -}}
+        {{ i18n "translationsLabel" }}{{ $linksOutput }}
+      </div>
+    {{- end }}
+  {{ end }}
+  </div>
+
+<!--  <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* Mengatur 5 kolom dengan lebar yang sama */
+            gap: 10px; /* Jarak antara kolom */
+            animation: scrollGrid 10s linear infinite; /* Animasi bergulir selama 10 detik */
+        }
+
+        .grid-item {
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        @keyframes scrollGrid {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%); /* Bergulir ke kiri sejauh 100% */
+            }
+        }
+      </style> -->
+
+
+  <!-- <div class="container-fluid">
+  <a href="{{ .RelPermalink }}">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="position-relative mb-3">
+                {{ if .Params.thumbnail }}
+                  <img class="img-fluid w-100" src="{{ .Params.thumbnail }}" alt="{{ .Params.title }}" style="object-fit: cover;">
+                {{ end }}
+                {{ if not (or (or .Site.Params.hideMeta .Params.hideMeta) false) }}
+                  <div class="bg-white border border-top-0 p-4">
+                    <div class="mb-2">
+                      <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"></a>
+                      <a class="text-body" href=""><small>{{ .Date.Format "January 2, 2006" }}</small></a>
+                    </div>
+                    <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" href="{{ .RelPermalink }}">{{ .Params.title }}</a>
+                    <div>{{ .Params.description }}</div>
+                  </div>
+                {{ end }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+  {{ if not (or (or .Site.Params.hideOtherLanguages .Params.hideOtherLanguages) false) }}
+    {{ if .IsTranslated }}
+      <div style="font-style: italic;font-size: smaller;">
+        {{ $sortedTranslations := sort .Translations "Site.Language.Weight" }}
+        {{ $links := apply $sortedTranslations "partial" "translation_link.html" "." }}
+        {{ $cleanLinks := apply $links "chomp" "." }}
+        {{ $linksOutput := delimit $cleanLinks (i18n "translationsSeparator") }}
+        {{ i18n "translationsLabel" }}{{ $linksOutput }}
+      </div>
+    {{ end }}
+  {{ end }}
+</div>-->
