@@ -1,10 +1,32 @@
-<div class="container position-relative d-flex align-items-center">
-    <a href='{{ absURL "/" }}' class="logo d-flex align-items-center me-auto">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <img src="/kalbar-logo.png" alt='{{ site.Title | plainify | truncate "12" }}' class="img-fluid" onerror="this.onerror=null;this.src='/img/kalbar-logo.png';">
-        <h1 class="sitename">{{ site.Title }}</h1>
-    </a>
+<div class="container position-relative d-flex align-items-center" style="min-height: 60px;">
+    
+    {{/* 1. KONTAINER NORMAL (Logo & Menu) */}}
+    <div id="normal-header-content" class="d-flex align-items-center w-100 justify-content-between">
+        <a href='{{ absURL "/" }}' class="logo d-flex align-items-center">
+            <img src="/kalbar-logo.png" alt='{{ site.Title | plainify | truncate "12" }}' class="img-fluid" onerror="this.onerror=null;this.src='/img/kalbar-logo.png';">
+            <h1 class="sitename ms-2">{{ site.Title }}</h1>
+        </a>
 
-    {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+        <div class="d-flex align-items-center">
+            {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+            
+            {{ if site.Params.enableSearch }}
+            <button class="btn btn-link text-dark ms-3 p-0" id="btn-open-search" aria-label="Buka Pencarian">
+                <i class="bi bi-search fs-5"></i>
+            </button>
+            {{ end }}
+        </div>
+    </div>
 
-</div>  
+    {{/* 2. KONTAINER PENCARIAN (Overlay yang memenuhi Header) */}}
+    {{ if site.Params.enableSearch }}
+    <div id="search-header-overlay" class="d-none position-absolute top-0 start-0 w-100 h-100 bg-white d-flex align-items-center z-3">
+        <div id="pagefind-wrapper" class="flex-grow-1"></div>
+        
+        <button class="btn btn-link text-danger ms-2 p-0" id="btn-close-search" aria-label="Tutup Pencarian">
+            <i class="bi bi-x-lg fs-4"></i>
+        </button>
+    </div>
+    {{ end }}
+
+</div>

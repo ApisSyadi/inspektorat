@@ -2664,3 +2664,83 @@ section,
   color: color-mix(in srgb, var(--default-color), transparent 60%);
   font-size: 14px;
 }
+
+/* Styling untuk memastikan elemen berada sejajar */
+.header-search-container {
+    display: flex;
+    align-items: center;
+    position: relative; /* Penting untuk penempatan relatif jika diperlukan */
+}
+
+/* Style untuk tombol toggle */
+.search-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.4rem; /* Sesuaikan ukuran ikon */
+    line-height: 1;
+    color: #333; /* Warna ikon normal */
+    transition: color 0.3s;
+    z-index: 10; /* Pastikan tombol di atas form */
+    margin-left: 10px;
+}
+
+/* Style untuk form pencarian */
+#search-form {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: absolute;
+    right: 0; 
+    top: 50%;
+    transform: translateY(-50%);
+    
+    /* Inisiasi state tersembunyi */
+    width: 0;
+    opacity: 0;
+    padding: 0;
+    transition: width 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* KONDISI SAAT FORM TERLIHAT (Hapus class d-none) */
+#search-form:not(.d-none) {
+    position: static;
+    transform: none;
+    width: 220px; /* Lebar saat terlihat. Sesuaikan sesuai kebutuhan */
+    opacity: 1;
+    margin-right: -40px; /* Geser ke kiri untuk menimpa area tombol */
+    padding-right: 40px; /* Tambahkan padding agar tombol tidak hilang */
+}
+
+/* Input field */
+#search-form input[type="text"] {
+    height: 38px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 5px 15px;
+    flex-grow: 1;
+    width: 100%;
+}
+
+/* Button Submit */
+#search-form button[type="submit"] {
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 1rem;
+    cursor: pointer;
+    position: absolute;
+    right: 15px; /* Sesuaikan posisi ikon pencarian di dalam bar */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Sembunyikan ikon bi-search di dalam tombol search-toggle saat form terbuka, 
+   karena ikonnya diganti dengan bi-x */
+.search-toggle #search-icon.bi-x {
+    color: #e33; /* Warna ikon 'x' */
+}
+
+.search-toggle #search-icon.bi-search {
+    color: #333; /* Warna ikon 'cari' */
+}

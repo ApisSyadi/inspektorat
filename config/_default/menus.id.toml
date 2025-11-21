@@ -80,12 +80,3 @@ identifier = 'faq'
 name = "FAQ"
 url = "/faq"
 weight = 6
-
-
-
-[[main]]
-identifier = 'search'
-name = "search"
-url = "/search"
-weight = 7
-

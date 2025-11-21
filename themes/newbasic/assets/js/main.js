@@ -206,6 +206,53 @@
 
 window.addEventListener('load', initSwiper);
 
+// ... kode sebelumnya ...
 
+  /**
+   * LOGIKA PENCARIAN HEADER PENUH (Full Bar)
+   */
+  function initFullHeaderSearch() {
+      const openBtn = document.getElementById('btn-open-search');
+      const closeBtn = document.getElementById('btn-close-search');
+      const normalHeader = document.getElementById('normal-header-content');
+      const searchOverlay = document.getElementById('search-header-overlay');
+
+      // Pastikan elemen ada
+      if (!openBtn || !closeBtn || !normalHeader || !searchOverlay) return;
+
+      // Fungsi Buka Pencarian
+      openBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          normalHeader.classList.add('d-none');      // Sembunyikan menu
+          searchOverlay.classList.remove('d-none');  // Munculkan bar pencarian
+          
+          // Fokus otomatis ke input Pagefind
+          const inputField = searchOverlay.querySelector('input');
+          if (inputField) inputField.focus();
+      });
+
+      // Fungsi Tutup Pencarian
+      closeBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          searchOverlay.classList.add('d-none');     // Sembunyikan bar pencarian
+          normalHeader.classList.remove('d-none');   // Munculkan menu kembali
+      });
+  }
+
+  function initPagefind() {
+      if (typeof PagefindUI !== 'undefined') {
+          new PagefindUI({
+              element: "#pagefind-wrapper", // Render di dalam overlay
+              showImages: false,
+              showSubResults: true,
+              resetStyles: false // Kita akan pakai style sendiri
+          });
+          
+          // Jalankan logika tombol setelah Pagefind siap
+          initFullHeaderSearch(); 
+      }
+  }
+
+  window.addEventListener('load', initPagefind);
 
 })();
